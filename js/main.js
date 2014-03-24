@@ -47,10 +47,10 @@ var app = {
 	initialize: function() {
 		var self = this;
 		this.detailsURL = /^#employees\/(\d{1,})/;
+		this.registerEvents();
 		this.store = new MemoryStore(function() {
 			self.route();
 		});
-		this.registerEvents();
 	}
 
 };
