@@ -11,10 +11,18 @@ var HomeView = function(store) {
 		});
 	};
 
+	this.findAll = function() {
+		store.findByName(" ", function(employees) {
+			$('.employee-list').html(HomeView.liTemplate(employees));
+		});
+	};
+
 	this.initialize = function() {
 		// Define a div wrapper for the view. The div wrapper is used to attach events.
 		this.el = $('<div/>');
 		$('body').on('keyup', '.search-key', this.findByName);
+		console.log('foo');
+		this.findAll();
 	};
 
 	this.initialize();

@@ -21,6 +21,24 @@ var MemoryStore = function(successCallback, errorCallback) {
 		callLater(callback, employee);
 	}
 
+	this.addEmployee = function (firstName, lastName, title, managerId, city, cellPhone, officePhone, email) {
+		var employees = this.employees;
+		var employee = {};
+		var l = employees.length;
+		employee.id = employees[l-1].id + 1;
+		employee.firstName = firstName;
+		employee.lastName = lastName;
+		employee.title = title;
+		employee.managerId = managerId;
+		employee.city = city;
+		employee.cellPhone = cellPhone;
+		employee.officePhone = officePhone;
+		employee.email = email;
+		employees[l] = employee;
+		console.log(employee);
+		console.log(employees);
+	}
+
 	// Used to simulate async calls. This is done to provide a consistent interface with stores (like WebSqlStore)
 	// that use async data access APIs
 	var callLater = function(callback, data) {

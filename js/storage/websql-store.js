@@ -66,13 +66,44 @@ var WebSqlStore = function(successCallback, errorCallback) {
 		for (var i = 0; i < l; i++) {
 			e = employees[i];
 			tx.executeSql(sql, [e.id, e.firstName, e.lastName, e.managerId, e.title, e.city, e.officePhone, e.cellPhone, e.email],
-					function() {
-						console.log('INSERT success');
-					},
-					function(tx, error) {
-						alert('INSERT error: ' + error.message);
-					});
+				function() {
+					console.log('INSERT success');
+				},
+				function(tx, error) {
+					alert('INSERT error: ' + error.message);
+				}
+			);
 		}
+	}
+
+	this.addEmployee = function (firstName, lastName, title, managerId, city, cellPhone, officePhone, email) {
+		var employee = {};
+		employee.firstName = firstName;
+		employee.lastName = lastName;
+		employee.title = title;
+		employee.managerId = managerId;
+		employee.city = city;
+		employee.cellPhone = cellPhone;
+		employee.officePhone = officePhone;
+		employee.email = email;
+		var e = employee;
+		var sql = "INSERT OR REPLACE INTO employee " +
+			"(firstName, lastName, managerId, title, city, officePhone, cellPhone, email) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		this.db.transaction(
+				function(tx) {
+					tx.executeSql(sql, [e.firstName, e.lastName, e.managerId, e.title, e.city, e.officePhone, e.cellPhone, e.email],
+						function() {
+							console.log('INSERT success');
+						},
+						function(tx, error) {
+							alert('INSERT error: ' + error.message);
+						}
+					);
+				}
+		)
+
+
 	}
 
 	this.findByName = function(searchKey, callback) {

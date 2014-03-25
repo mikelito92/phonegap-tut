@@ -36,6 +36,10 @@ var app = {
 				self.slidePage(new EmployeeView(employee).render());
 			});
 		}
+		match = hash.match(this.newEmployeeURL);
+		if (match) {
+			self.slidePage(new NewEmployeeView(this.store).render());
+		}
 	},
 
 	slidePage: function(page) {
@@ -80,8 +84,9 @@ var app = {
 	initialize: function() {
 		var self = this;
 		this.detailsURL = /^#employees\/(\d{1,})/;
+		this.newEmployeeURL = /^#new-employee/;
 		this.registerEvents();
-		this.store = new MemoryStore(function() {
+		this.store = new WebSqlStore(function() {
 			self.route();
 		});
 	}
