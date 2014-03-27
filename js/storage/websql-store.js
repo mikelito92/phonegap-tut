@@ -76,7 +76,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
 		}
 	}
 
-	this.addEmployee = function (firstName, lastName, title, managerId, city, cellPhone, officePhone, email) {
+	this.addEmployee = function (firstName, lastName, title, managerId, city, cellPhone, officePhone, email, callback) {
 		var employee = {};
 		employee.firstName = firstName;
 		employee.lastName = lastName;
@@ -95,9 +95,11 @@ var WebSqlStore = function(successCallback, errorCallback) {
 					tx.executeSql(sql, [e.firstName, e.lastName, e.managerId, e.title, e.city, e.officePhone, e.cellPhone, e.email],
 						function() {
 							console.log('INSERT success');
+							callback(true);
 						},
 						function(tx, error) {
 							alert('INSERT error: ' + error.message);
+							callback(false);
 						}
 					);
 				}

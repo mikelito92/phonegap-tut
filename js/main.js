@@ -23,8 +23,10 @@ var app = {
 		var hash = window.location.hash;
 		if (!hash) {
 			if (this.homePage) {
+				console.log(1);
 				this.slidePage(this.homePage);
 			} else {
+				console.log(2);
 				this.homePage = new HomeView(this.store).render();
 				this.slidePage(this.homePage);
 			}
@@ -40,6 +42,10 @@ var app = {
 		if (match) {
 			self.slidePage(new NewEmployeeView(this.store).render());
 		}
+		/*match = hash.match(this.newEmployeeSavedURL);
+		if(match){
+			self.slidePage(this.homePage);
+		}*/
 	},
 
 	slidePage: function(page) {
@@ -85,6 +91,7 @@ var app = {
 		var self = this;
 		this.detailsURL = /^#employees\/(\d{1,})/;
 		this.newEmployeeURL = /^#new-employee/;
+		this.newEmployeeSavedURL = /^#new-employee-saved/;
 		this.registerEvents();
 		this.store = new WebSqlStore(function() {
 			self.route();

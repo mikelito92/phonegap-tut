@@ -34,9 +34,17 @@ var NewEmployeeView = function(store) {
 				that.showAlert("Name must not be empty.", "Error");
 			}
 			else{
-				store.addEmployee(e.firstName, e.lastName, e['title'], e.managerId, e.city, e.officePhone, e.cellPhone, e.email);
-
-				return;
+				var t = that;
+				store.addEmployee(e.firstName, e.lastName, e.title, e.managerId, e.city, e.officePhone, e.cellPhone, e.email, function(success) {
+					console.log(success);
+					if(success == true){
+						window.location.href = window.location.pathname;
+					}
+					else{
+						console.log("foooooo");
+						t.showAlert("Error saving the details.", "Error");
+					}
+				});
 			}
 
 			// return false;

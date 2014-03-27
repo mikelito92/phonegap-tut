@@ -5,6 +5,12 @@ var HomeView = function(store) {
 		return this;
 	};
 
+	this.refeshData = function() {
+		this.findAll();
+		this.el.html(HomeView.template());
+		return this;
+	};
+
 	this.findByName = function() {
 		store.findByName($('.search-key').val(), function(employees) {
 			$('.employee-list').html(HomeView.liTemplate(employees));
@@ -12,7 +18,14 @@ var HomeView = function(store) {
 	};
 
 	this.findAll = function() {
-		store.findByName(" ", function(employees) {
+		var input;
+		if($('.search-key').val() == null){
+			input = " ";
+		}
+		else {
+			input = $('.search-key').val();
+		}
+		store.findByName(input, function(employees) {
 			$('.employee-list').html(HomeView.liTemplate(employees));
 		});
 	};
@@ -21,7 +34,6 @@ var HomeView = function(store) {
 		// Define a div wrapper for the view. The div wrapper is used to attach events.
 		this.el = $('<div/>');
 		$('body').on('keyup', '.search-key', this.findByName);
-		console.log('foo');
 		this.findAll();
 	};
 
