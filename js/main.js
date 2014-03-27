@@ -16,7 +16,7 @@ var app = {
 		$('body').on('mouseup', 'a', function(event) {
 			$(event.target).removeClass('tappable-active');
 		});
-		document.addEventListener("deviceready", this.onDeviceReady, false);
+		document.addEventListener("deviceready", this.onDeviceReady(), false);
 	},
 
 	route: function() {
@@ -91,17 +91,17 @@ var app = {
 	},
 
 	onDeviceReady: function() {
-		document.addEventListener("backbutton", this.onBackKeyDown, false);
+		document.addEventListener("backbutton", this.onBackKeyDown(), false);
 	},
 
 	onBackKeyDown: function() {
-		var self = this;
-		if(this.homePageRendered){
-			navigator.app.exitApp();
-			console.log('exitApp');
-		}
-		else{
-			window.location.href = window.location.pathname + "#";
+		var hash = window.location.hash;
+		if (!hash) {
+			if (this.homePageRendered) {
+				navigator.app.exitApp();
+			} else {
+				window.location.href = window.location.pathname + "#";
+			}
 		}
 	},
 
