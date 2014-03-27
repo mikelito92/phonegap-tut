@@ -38,7 +38,7 @@ var NewEmployeeView = function(store) {
 				store.addEmployee(e.firstName, e.lastName, e.title, e.managerId, e.city, e.officePhone, e.cellPhone, e.email, function(success) {
 					console.log(success);
 					if(success == true){
-						window.location.href = window.location.pathname;
+						window.location.href = window.location.pathname + "#";
 					}
 					else{
 						console.log("foooooo");

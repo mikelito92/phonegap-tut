@@ -1,7 +1,13 @@
 var HomeView = function(store) {
 
 	this.render = function() {
+		var sKey = $('.search-key').val();
+		console.log("before val: " + $('.search-key').val());
+		this.findAll();
+		//console.log("after val: " + $('.search-key').val());
 		this.el.html(HomeView.template());
+		$('.search-key').val(sKey);
+		console.log("after val: " + $('.search-key').val());
 		return this;
 	};
 

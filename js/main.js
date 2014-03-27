@@ -16,19 +16,22 @@ var app = {
 		$('body').on('mouseup', 'a', function(event) {
 			$(event.target).removeClass('tappable-active');
 		});
+		document.addEventListener("deviceready", this.onDeviceReady, false);
 	},
 
 	route: function() {
 		var self = this;
 		var hash = window.location.hash;
+		console.log("\"" + hash + "\"");
 		if (!hash) {
-			if (this.homePage) {
+			if (this.homePageRendered) {
 				console.log(1);
-				this.slidePage(this.homePage);
+				this.slidePage(this.homePage.render());
 			} else {
 				console.log(2);
-				this.homePage = new HomeView(this.store).render();
-				this.slidePage(this.homePage);
+				this.homePage = new HomeView(this.store);
+				this.homePageRendered = this.homePage.render();
+				this.slidePage(this.homePageRendered);
 			}
 			return;
 		}
@@ -85,6 +88,21 @@ var app = {
 			self.currentPage = page;
 		});
 
+	},
+
+	onDeviceReady: function() {
+		document.addEventListener("backbutton", this.onBackKeyDown, false);
+	},
+
+	onBackKeyDown: function() {
+		var self = this;
+		if(this.homePageRendered){
+			navigator.app.exitApp();
+			console.log('exitApp');
+		}
+		else{
+			window.location.href = window.location.pathname + "#";
+		}
 	},
 
 	initialize: function() {
